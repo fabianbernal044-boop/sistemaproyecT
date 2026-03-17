@@ -1,0 +1,2641 @@
+﻿:root {
+    --vinotinto: #000000;
+    --rojo-unicasa: #d90429;
+    --gris-fondo: #f8f9fa;
+    --gris-texto: #4a4a4a;
+    --blanco: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--gris-fondo);
+    color: var(--gris-texto);
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Estilo Vinotinto */
+.sidebar {
+    width: 260px;
+    background-color: var(--vinotinto);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.logo {
+    padding-bottom: 40px;
+    border-bottom: 6px solid rgba(255,255,255,0.1);
+}
+
+.menu {
+    margin-top: 30px;
+    flex-grow: 1;
+}
+
+    .menu a {
+        display: block;
+        color: rgba(255,255,255,0.7);
+        text-decoration: none;
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        transition: 0.3s;
+    }
+
+        .menu a.active, .menu a:hover {
+            background-color: var(--rojo-unicasa);
+            color: white;
+        }
+
+.badge {
+    background: white;
+    color: var(--vinotinto);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    float: right;
+}
+
+/* Área de Contenido */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    background-color: var(--rojo-unicasa);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.calendar-card {
+    max-width: 800px; 
+    margin: 0 auto;  
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), 
+            0 25px 50px rgba(0,0,0,0.1);
+}
+
+:root {
+    --fc-button-bg-color: #800020;        /* Vinotinto para botones */
+    --fc-button-border-color: #800020;
+    --fc-button-hover-bg-color: #600018;
+    --fc-button-active-bg-color: #4d0013;
+    
+    --fc-event-bg-color: #800020;         /* Color de los eventos */
+    --fc-event-border-color: #800020;
+    
+    --fc-today-bg-color: rgba(128, 128, 128, 0.1); /* Gris muy claro para el día actual */
+    --fc-border-color: #d1d1d1;           /* Gris para las líneas de la cuadrícula */
+}
+
+/* Estilo para el texto del título (Mes/Año) */
+.fc-toolbar-title {
+    color: #2d2525 !important; /* Gris oscuro elegante */
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+/* Personalización de FullCalendar para que combine */
+.fc-header-toolbar {
+    margin-bottom: 20px !important;
+}
+
+.fc-button-primary {
+    background-color: var(--vinotinto) !important;
+    border-color: var(--vinotinto) !important;
+}
+.modal {
+    display: none; /* Inicia oculto */
+    position: fixed;
+    z-index: 9999 !important; /* El número debe ser muy alto para que esté al frente */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Fondo oscuro semi-transparente */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    position: relative; /* Para asegurar su posición */
+}
+.btn-primary {
+    background-color: #97051d; /* El rojo de Unicasa */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+    .btn-primary:hover {
+        background-color: #6b0f1a; /* Cambia a vinotinto al pasar el mouse */
+        transform: translateY(-1px);
+    }
+.btn-primary {
+    /* ... tus estilos actuales ... */
+    position: relative;
+    border: none;
+    outline: none;
+    /* Animación de resplandor constante */
+    animation: glow-pulse 4s infinite;
+    transition: all 1s ease;
+}
+
+    .btn-primary:hover {
+        transform: scale(1.05); /* Se agranda un poquito al pasar el mouse */
+        background-color: #ff002b; /* Un rojo más brillante al tocarlo */
+        box-shadow: 0 0 30px rgba(217, 4, 41, 0.8); /* Brillo intenso al hover */
+    }
+
+/* Definición de la animación de pulso */
+@keyframes glow-pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(217, 4, 41, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(217, 4, 41, 0.7), 0 0 30px rgba(217, 4, 41, 0.2);
+    }
+
+    70% {
+        box-shadow: 0 0 5px rgba(217, 4, 41, 0.4);
+    }
+}
+/* Título Elegante y Animado */
+.title-elegant {
+    font-size: 3.0rem;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(90deg, #616161, #9c1c3f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+    animation: fadeInSlide 1.7s ease-out;
+}
+
+.title-underline {
+    height: 8px;
+    width: 623px;
+    background: #9c1c3f;
+    border-radius: 20px;
+    margin-top: 5px;
+    animation: expandLine 2s ease-in-out;
+}
+
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes expandLine {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 623px;
+    }
+}
+/* Animación de entrada para la Sidebar */
+.sidebar {
+    animation: slideInLeft 0.6s ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empuja la info del usuario hacia abajo */
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Efecto en los botones del menú */
+.menu a {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+}
+
+    .menu a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(8px); /* Pequeño salto a la derecha */
+        padding-left: 15px;
+    }
+
+/* Estilo para el área de usuario como botón */
+.user-info-box {
+    background: rgba(68, 67, 67, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
+    border: 1px solid transparent;
+}
+
+    .user-info-box:hover {
+        background: rgba(75, 29, 29, 0.944);
+        border: 2px solid rgb(156, 0, 0);
+    }
+
+.user-icon-link {
+    background: white;
+    color: #6b0f1a;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+.header-animated {
+    animation: fadeInDown 1.3s ease-out;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* El círculo de notificación que parpadea */
+.badge {
+    background-color: #ffa20dda;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-left: 10px;
+    font-weight: bold;
+    /* Animación de latido */
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(217, 4, 41, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(217, 4, 41, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(217, 4, 41, 0);
+    }
+}
+.menu a {
+    opacity: 0;
+    animation: slideInMenu 0.5s ease-out forwards;
+}
+
+    /* Retraso para que cada botón salga después del anterior */
+    .menu a:nth-child(1) {
+        animation-delay: 0.2s;
+    }
+
+    .menu a:nth-child(2) {
+        animation-delay: 0.4s;
+    }
+
+    .menu a:nth-child(3) {
+        animation-delay: 0.6s;
+    }
+
+    .menu a:nth-child(4) {
+        animation-delay: 0.8s;
+    }
+
+@keyframes slideInMenu {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.btn-logout {
+    display: block;
+    margin-top: 15px;
+    padding: 10px;
+    text-align: center;
+    background-color: #e30613; /* Rojo Unicasa */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #b3050f;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+/* Para que el selector múltiple se vea elegante */
+#asignado_a {
+    width: 200%;           /* Ocupa todo el ancho de su contenedor */
+    min-width: 200px;      /* Que no se vea flaco */
+    height: 150px;         /* Altura cómoda para ver varios nombres */
+    padding: 1px;
+    border: 4px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* Estilo para las opciones de adentro */
+#asignado_a option {
+    padding: 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#asignado_a option:checked {
+    background-color: #800020 !important; /* Tu vinotinto al seleccionar */
+    color: white;
+}
+
+/* Estilo para el encabezado del calendario */
+.fc-toolbar-title {
+    color: #800020 !important; /* El Vinotinto corporativo */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Estilo para los botones del calendario */
+.fc-button-primary {
+    background-color: #d90429 !important; /* Rojo Unicasa */
+    border-color: #800020 !important;
+}
+
+.fc-button-primary:hover {
+    background-color: #800020 !important;
+}
+
+/* El contenedor del calendario */
+#calendar {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-top: 5px solid #800020;
+}
+/* Variables para Modo Claro (por defecto) */
+:root {
+    --bg-main: #ffffff;
+    --bg-card: #ffffff;
+    --text-color: #333333;
+    --sidebar-color: #6b0f1a; /* Tu vinotinto */
+}
+
+/* Variables para Modo Oscuro */
+body.dark-mode {
+    --bg-main: #121212;
+    --bg-card: #2d2d2d;
+    --text-color: #ffffff;
+}
+
+/* Aplicación de las variables */
+body {
+    background-color: var(--bg-main);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.calendar-card, .top-bar {
+    background-color: var(--bg-card) !important;
+    color: var(--text-color) !important;
+}
+
+/* Estilo para el Switch (Interruptor) */
+.switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: #d90429; }
+input:checked + .slider:before { transform: translateX(26px); }
+
+/* --- MEJORAS PARA EL MODO OSCURO --- */
+body.dark-mode {
+    --bg-main: #121212;
+    --bg-card: #1e1e1e;
+    --text-color: #ffffff; /* Letras blancas para todo el body */
+    --border-color: #444444;
+}
+
+/* Forzar que todos los textos sean blancos en modo oscuro */
+body.dark-mode p, 
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode span, 
+body.dark-mode label {
+    color: #ffffff !important;
+}
+
+/* ESTILOS ESPECÍFICOS DEL CALENDARIO EN MODO OSCURO */
+body.dark-mode .fc {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+}
+
+/* Bordes de las celdas */
+body.dark-mode .fc td, 
+body.dark-mode .fc th, 
+body.dark-mode .fc-theme-standard td, 
+body.dark-mode .fc-theme-standard th,
+body.dark-mode .fc-scrollgrid {
+    border-color: var(--border-color) !important;
+}
+
+/* Encabezados de los días (lun, mar, mié...) */
+body.dark-mode .fc-col-header-cell-cushion {
+    color: #ffffff !important;
+}
+
+/* Números de los días dentro del calendario */
+body.dark-mode .fc-daygrid-day-number {
+    color: #ffffff !important;
+    padding: 10px;
+    font-weight: bold;
+}
+
+/* El fondo de las celdas del calendario */
+body.dark-mode .fc-daygrid-day {
+    background-color: #1e1e1e !important;
+}
+
+/* Cambiar el color de los eventos guardados para que resalten */
+body.dark-mode .fc-event {
+    border: 1px solid #ffffff33;
+}
+
+/* Los botones de 'Hoy', '<' y '>' ya son rojos, pero podemos darles un toque */
+body.dark-mode .fc-button {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+/* Esto quita el recuadro detrás de "Panel de Eventos" */
+.top-bar, .header-animated {
+    background: transparent !important; /* Quita el color de fondo */
+    box-shadow: none !important;        /* Quita cualquier sombra */
+    border: none !important;            /* Quita bordes si los hay */
+    padding-left: 0 !important;         /* Alinea el texto a la izquierda si es necesario */
+}
+
+/* Si el título está dentro de una tarjeta (card), quítale el fondo a esa tarjeta específica */
+.calendar-card header {
+    background: transparent !important;
+}
+.user-info {
+    padding: 15px;
+    background: rgba(0,0,0,0.2); /* Un fondo sutil para separar del menú */
+}
+
+.user-info-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    background: #d90429;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; /* Evita que el avatar se aplaste */
+}
+
+.user-details {
+    overflow: hidden; /* Corta el texto si es muy largo */
+    white-space: nowrap;
+}
+
+.user-name {
+    display: block;
+    font-size: 0.85rem;
+    color: white;
+    text-overflow: ellipsis;
+}
+
+.user-role {
+    display: block;
+    font-size: 0.7rem;
+    color: #ccc;
+    text-transform: uppercase; /* Se ve más profesional en cargos */
+    letter-spacing: 0.5px;
+}
+/* Tabla Profesional */
+.tabla-unicasa-pro {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.tabla-unicasa-pro th {
+    background: #800020;
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.tabla-unicasa-pro td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+/* Estilo Notificaciones Tipo Facebook */
+.notif-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.notif-item:hover { background: #f0f2f5; }
+.unread { background: #ebf5ff; }
+
+.notif-avatar {
+    width: 45px;
+    height: 45px;
+    background: #800020;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+}
+
+.notif-content p { margin: 0; font-size: 0.9rem; }
+.notif-time { font-size: 0.75rem; color: #65676b; }
+.notif-dot {
+    width: 10px;
+    height: 10px;
+    background: #0084ff;
+    border-radius: 50%;
+    margin-left: auto;
+}
+/* Para que la tabla de Eventos/Tareas se vea profesional */
+.tabla-unicasa-pro {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+body.dark-mode .tabla-unicasa-pro {
+    background: #1e1e1e;
+    color: rgb(0, 0, 0);
+}
+
+.tabla-unicasa-pro th {
+    background-color: #800020; /* Vinotinto Unicasa */
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.tabla-unicasa-pro td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.85rem;
+}
+
+body.dark-mode .tabla-unicasa-pro td {
+    border-bottom: 1px solid #333;
+}
+.nav-badge {
+    background-color: #ff3b30; /* Rojo vibrante */
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px; /* Bordes redondeados tipo cápsula */
+    min-width: 18px;    /* Asegura que no sea un círculo aplastado */
+    text-align: center;
+    margin-left: 8px;
+    display: none;      /* Se activa con JS */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Animación de "brinco" cuando llega una nueva */
+.pulse-anim {
+    animation: pulse 0.4s ease-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+/* Notificación no leída (Fondo diferente) */
+.notif-item.unread {
+    background-color: #979797; /* Un gris/azul muy claro */
+    border-left: 4px solid #d90429; /* Una barrita roja a la izquierda */
+}
+
+/* El punto azul de "Nuevo" */
+.notif-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #0084ff;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+/* El número en la sidebar */
+.nav-badge {
+    background: #ff9800;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-left: 10px; /* Separación del texto */
+    transition: all 0.3s ease; /* Efecto de movimiento */
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Efecto cuando el número cambia o pasas el mouse */
+.nav-badge:hover {
+    transform: scale(1.2);
+}
+
+/* La notificación individual */
+.notif-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.notif-item.unread {
+    background-color: #b6d8ff; /* Azul muy suave */
+    border-left: 4px solid #d90429; /* Línea roja de Unicasa a la izquierda */
+}
+
+/* El punto azul de "No leído" */
+.notif-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #0084ff;
+    border-radius: 50%;
+    position: absolute;
+    right: 20px;
+    box-shadow: 0 0 5px rgba(0,132,255,0.5);
+}
+.notif-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    position: relative; /* Clave para el punto */
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.notif-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #0084ff; /* Azul Facebook */
+    border-radius: 50%;
+    position: absolute;
+    right: 15px; /* Lo pega a la derecha */
+}
+/* La animación del numerito */
+.animacion-notificacion {
+    animation: bounce-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounce-in {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.5); } /* Crece un poco más */
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Efecto extra: un brillo suave permanente si hay notis */
+.nav-badge {
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+}
+
+.unread {
+    background-color: #f0f7ff; /* Fondo celeste para resaltar */
+}
+.nav-badge {
+    transition: transform 0.2s ease-in-out; /* Para el efecto de brinco */
+}
+
+.notif-item {
+    transition: background 0.3s ease;
+}
+.progreso-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.progreso-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.barra-fondo {
+    background: #e0e0e0;
+    height: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-relleno {
+    background: linear-gradient(90s, #4caf50, #81c784);
+    height: 100%;
+    width: 0%; /* Empezamos en 0 */
+    transition: width 1s ease-in-out; /* Animación suave */
+}
+/* Ajuste para la tabla de Unicasa */
+.tabla-unicasa-pro {
+    table-layout: fixed; /* Esto es clave: fija el ancho de la tabla al contenedor */
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Estilo específico para la columna de Detalles (la segunda columna) */
+.tabla-unicasa-pro td:nth-child(2) {
+    word-wrap: break-word;     /* Rompe palabras largas si es necesario */
+    overflow-wrap: break-word; /* Estándar moderno */
+    white-space: normal;       /* Permite que el texto baje a la siguiente línea */
+    max-width: 250px;          /* Ajusta este número según qué tan ancha la quieras */
+    text-align: left;
+    padding: 10px;
+    vertical-align: middle;
+}
+.tabla-unicasa-pro td b {
+    display: block; /* Para el título de la actividad */
+}
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background: #333;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), 
+            0 25px 50px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideInRight 0.3s ease-out;
+    border-left: 5px solid #b20808; /* Rojo Unicasa */
+}
+
+.toast.success { border-left-color: #28a745; }
+.toast.error { border-left-color: #dc3545; }
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+/* --- ESTADO POR DEFECTO (MODO CLARO) --- */
+.progreso-container {
+    background-color: #f8f9fa; /* Fondo clarito */
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px 25px;
+    margin: 20px 0;
+}
+
+.progreso-header {
+    color: #333; /* Texto oscuro */
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.barra-fondo {
+    background-color: #e9ecef; /* Carril gris claro */
+    height: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-relleno {
+    background-color: #800020; /* Rojo Unicasa */
+    height: 100%;
+    width: 0%;
+    transition: width 0.6s ease;
+}
+
+/* --- ESTADO MODO OSCURO (Solo aplica si el body tiene .dark-mode) --- */
+body.dark-mode .progreso-container {
+    background-color: #000000; /* Fondo negro como en tu imagen */
+    border: 2px solid #ffffff; /* Borde blanco resaltado */
+}
+
+body.dark-mode .progreso-header {
+    color: #ffffff; /* Texto blanco */
+}
+
+body.dark-mode .barra-fondo {
+    background-color: #333333; /* Carril gris oscuro */
+}
+/* Colores por tipo de notificación */
+.notif-item.type-Exito { border-left: 4px solid #28a745; transition: background 0.3s;}      /* Verde */
+.notif-item.type-Alerta { border-left: 4px solid #dc3545; transition: background 0.3s;}     /* Rojo */
+.notif-item.type-Recordatorio { border-left: 4px solid #ffc107; transition: background 0.3s;}  /* Amarillo */
+.notif-item.type-Expiracion { border-left: 4px solid #fd7e14; transition: background 0.3s;}  /* Naranja */
+
+/*RESALTAN MÁS*/
+.notif-item.unread {
+    background-color: rgba(128, 0, 32, 0.05); 
+}
+    .notif-item.type-Exito:hover {
+        background: rgba(184, 255, 188, 0.944);
+    }
+       .notif-item.type-Alerta:hover {
+        background: rgba(255, 149, 149, 0.944);
+    }
+       .notif-item.type-Recordatorio:hover {
+        background: rgba(255, 246, 179, 0.944);
+    }
+       .notif-item.type-Expiracion:hover {
+        background: rgba(255, 206, 168, 0.944);
+    }
+    /* Estilos para el Panel de Tareas */
+.tabla-tareas {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.tabla-tareas th {
+    background-color: #f8f9fa;
+    color: #9c1c3f; /* Tu color vinotinto */
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #eee;
+    font-weight: 600;
+}
+
+.tabla-tareas td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.tarea-titulo {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.tarea-desc {
+    font-size: 0.85rem;
+    color: #777;
+    margin: 0;
+}
+
+.badge-status {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.badge-verde { background-color: #d4edda; color: #155724; }
+.badge-rojo { background-color: #f8d7da; color: #721c24; }
+
+.btn-icon-borrar {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.btn-icon-borrar:hover {
+    transform: scale(1.2);
+}
+.selector-opciones {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.btn-opcion {
+    flex: 1;
+    padding: 25px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.btn-opcion:hover {
+    border-color: #9c1c3f;
+    background: #fdf2f2;
+    transform: translateY(-5px);
+}
+
+.btn-opcion i {
+    font-size: 2rem;
+    color: #9c1c3f;
+    margin-bottom: 10px;
+}
+
+.btn-opcion span {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.btn-opcion small {
+    color: #666;
+}
+.fc-event {
+    cursor: pointer;
+}
+
+
+
+/* Añade esto a tu archivo .css */
+
+/* Seleccionamos la esquina superior izquierda del calendario */
+.fc .fc-timegrid-axis-cushion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #9c1c3f; /* El color guinda que estás usando */
+    text-transform: uppercase;
+    overflow: visible !important; /* Permite que el brillo salga del recuadro del evento */
+}
+
+/* Inyectamos el texto "Horas" */
+.fc .fc-timegrid-axis-frame::before {
+    content: "HORAS";
+    display: flex;             /* Cambiamos a flex para centrar mejor */
+    justify-content: center;   /* Centrado horizontal */
+    align-items: center;       /* Centrado vertical */
+    width: 100%;               /* Forzamos que ocupe todo el ancho de la columna */
+    font-size: 1.2em;          /* Bajamos un poco el tamaño para que no choque con los bordes */
+    font-weight: bold;
+    color: #2f0207;            /* El color vinotinto de Unicasa le quedaría genial */
+    padding: 10px 0;
+    background-color: #f8f9fa;
+    box-sizing: border-box;    /* Asegura que el padding no rompa el ancho */
+}
+
+/* Color del área seleccionada (el fondo) */
+.fc .fc-highlight {
+    background: rgba(255, 0, 0, 0.5) !important; /* Un rojo guinda con transparencia */
+}
+                
+/* 1. Fondo general y suavizado de bordes */
+#calendar {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), 
+            0 25px 50px rgba(0,0,0,0.1);
+    font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 2. Quitar bordes internos para un look más "aireado" */
+.fc-theme-standard td, .fc-theme-standard th {
+    border: 1px solid #bcbbbb !important;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+    border: none !important;
+}
+
+/* 3. Estilo de las cabeceras (Días de la semana) */
+.fc .fc-col-header-cell {
+    background-color: #fdfdfd;
+    padding: 12px 0 !important;
+}
+
+.fc .fc-col-header-cell-cushion {
+    color: #555;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-decoration: none !important;
+}
+
+/* 4. Estilo de la columna de Horas */
+.fc .fc-timegrid-axis-cushion {
+    color: #999;
+    font-size: 0.85em;
+    font-weight: 400;
+}
+
+/* 5. DISEÑO DE LOS EVENTOS (Más modernos) */
+.fc-v-event {
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 4px !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), 
+            0 25px 50px rgba(0,0,0,0.1) !important;
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+}
+
+/* Efecto al pasar el mouse por un evento */
+.fc-v-event:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+/* Título dentro del evento */
+.fc-event-title {
+    font-weight: 700 !important;
+    font-size: 0.9em !important;
+}
+
+/* 6. Personalización de la selección (La que querías resaltar) */
+.fc .fc-timegrid-slots .fc-highlight {
+    background-color: rgba(255, 10, 10, 0.1) !important; /* Rojo muy sutil */
+    border-left: 4px solid #b20808 !important;         /* Barra lateral elegante */
+}
+
+/* 7. Botones del calendario (Hoy, Mes, Semana, Día) */
+.fc .fc-button-primary {
+    background-color: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+    color: #444 !important;
+    font-weight: 600 !important;
+    text-transform: capitalize !important;
+    transition: all 0.3s ease !important;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: #f8f8f8 !important;
+    border-color: #ccc !important;
+}
+
+.fc .fc-button-active {
+    background-color: #b20808 !important; /* Tu color guinda */
+    border-color: #b20808 !important;
+    color: white !important;
+}
+/* Clase que aplicaremos al body o al contenedor principal */
+body.calendar-maximized .sidebar {
+    display: none; /* Ocondemos el menú lateral */
+}
+
+body.calendar-maximized .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 10px !important;
+}
+
+/* Estilo para el botón de expandir para que se vea elegante */
+.btn-secundario {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-secundario:hover {
+    background-color: #e2e6ea;
+}
+/* Contenedor del Modal */
+.modal-content {
+    background-color: #fff;
+    margin: 2% auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), 
+            0 25px 50px rgba(0,0,0,0.1);
+    border: none;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Cabecera con la X en la esquina */
+.modal-header {
+    background: #f8f9fa;
+    padding: 20px 25px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.close-modal {
+    font-size: 28px;
+    color: #aaa;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #000000; /* Rojo Unicasa */
+}
+
+/* Cuerpo y Casillas */
+.modal-body {
+    padding: 25px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    box-sizing: border-box; /* Evita que se salga del contenedor */
+}
+
+.form-control:focus {
+    border-color: #b20808;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(178, 8, 8, 0.1);
+}
+
+/* Filas de dos columnas */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Botones del Footer */
+.modal-footer {
+    padding: 20px 25px;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-confirmar {
+    background-color: #b20808;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-confirmar:hover {
+    background-color: #8b0000;
+}
+
+.btn-cancelar {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #666;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.modal-body {
+    padding: 25px;
+    /* 1. Definimos una altura máxima (puedes ajustarla a tu gusto) */
+    max-height: 65vh; 
+    
+    /* 2. Activamos el scroll vertical solo si es necesario */
+    overflow-y: auto; 
+    
+    /* 3. Un borde sutil arriba y abajo para indicar que hay contenido oculto */
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* 4. Personalizamos la barra de scroll para que se vea fina y moderna */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #b20808; /* El rojo Unicasa al pasar el mouse */
+}
+/* Contenedor del input e icono */
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* El icono posicionado de forma absoluta */
+.input-with-icon i {
+    position: absolute;
+    left: 12px;
+    color: #b20808; /* Rojo Unicasa */
+    font-size: 1.1rem;
+    pointer-events: none; /* Para que el clic pase a través del icono al input */
+}
+
+/* Ajuste del input para dejar espacio al icono */
+.input-with-icon .form-control {
+    padding-left: 40px !important; /* Espacio para el icono */
+}
+
+/* Efecto visual al hacer focus */
+.input-with-icon .form-control:focus + i {
+    color: #8b0000;
+    transform: scale(1.1);
+    transition: all 0.2s;
+}
+
+/* Scroll del cuerpo del modal (Lo que pediste antes) */
+.modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 25px;
+    scrollbar-width: thin;
+    scrollbar-color: #b20808 #f1f1f1;
+}
+/* Definición de la animación */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px); /* Empieza un poco más arriba */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);    /* Termina en su posición original */
+    }
+}
+
+/* Aplicar la animación al contenido del modal */
+.modal-content {
+    animation: modalFadeIn 0.4s ease-out; /* Duración de 0.4 segundos */
+}
+
+/* Opcional: Oscurecimiento suave del fondo */
+.modal-overlay {
+    transition: opacity 0.3s ease;
+}
+/* Para que el select múltiple no se vea apretado con el icono */
+#ev_destino {
+    padding-top: 8px !important;
+}
+
+/* Efecto de focus en el borde para el color guinda de Unicasa */
+.form-control:focus {
+    border-color: #6b0f1a !important;
+    box-shadow: 0 0 0 3px rgba(107, 15, 26, 0.1) !important;
+}
+.ficha-sala {
+    background: #fdf2f2; /* Un rojo muy tenue */
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.85rem;
+    color: #444;
+}
+
+.ficha-item {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ficha-item i {
+    color: #6b0f1a; /* Tu color vinotinto */
+    width: 15px;
+}
+
+.ficha-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    border-top: 1px solid #eee;
+    padding-top: 5px;
+}
+
+.tags-equipos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.tag {
+    background: #6b0f1a;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+/* Card Principal */
+.detalle-reserva-card {
+    max-width: 550px;
+    border-radius: 12px;
+    overflow: hidden; /* Para que el header redondee sus esquinas */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), 
+            0 25px 50px rgba(0,0,0,0.1);
+    border: none !important;
+}
+
+/* Header Vinotinto Unicasa */
+.modal-header-vinotinto {
+    background: linear-gradient(135deg, #6b0f1a 0%, #8e1422 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header-vinotinto h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.close-x {
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+/* Cuerpo y Etiquetas */
+.detalle-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.detalle-item label {
+    display: block;
+    font-weight: 700;
+    color: #888;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.dato-texto {
+    color: #333;
+    font-weight: 500;
+}
+
+/* Bloques de información */
+.horario-destacado {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 5px solid #6b0f1a;
+    font-weight: 600;
+    color: #444;
+}
+
+.caja-descripcion {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+    min-height: 40px;
+}
+
+/* Footer y Botones Profesionales */
+.modal-footer-moderno {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+
+.grupo-izquierdo {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-flat {
+    background: none;
+    border: 1px solid transparent;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-eliminar-red { color: #dc3545; }
+.btn-eliminar-red:hover { background: #fff5f5; border-color: #ffa8a8; }
+
+.btn-editar-yellow { color: #d4a017; }
+.btn-editar-yellow:hover { background: #fffdf0; border-color: #ffe066; }
+
+.btn-solido {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-completar-green {
+    background: #28a745;
+    color: white;
+}
+
+.btn-completar-green:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.btn-confirmar-asistencia:hover {
+    transform: translateY(-2px);
+}
+/* Ajuste para el modal de detalle */
+#modalDetalleReserva .modal-content {
+    max-width: 600px; /* Un poco más ancho para que respire */
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 12px;
+}
+
+.sala-info-container {
+    margin-top: 5px;
+}
+
+/* Para que los iconos de FontAwesome tengan un color corporativo */
+#modalDetalleReserva i {
+    color: #6b0f1a;
+}
+#modalDetalleReserva .modal-content {
+    min-width: 550px; /* Evita que el modal sea muy estrecho */
+}
+
+/* Alinea los iconos para que se vean organizados */
+#det_sala i {
+    text-align: center;
+    margin-right: 5px;
+}
+
+/* SERVICIOS CARD */
+.servicio-card {
+    cursor: pointer;
+}
+
+.servicio-content {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+    background: #f9f9f9;
+}
+
+.servicio-content i {
+    color: #6b0f1a; /* Tu color vinotinto */
+}
+
+/* Cuando el checkbox oculto está marcado */
+input[type="checkbox"]:checked + .servicio-content {
+    background: #6b0f1a;
+    color: white;
+    border-color: #6b0f1a;
+}
+
+input[type="checkbox"]:checked + .servicio-content i {
+    color: white;
+}
+/* Esto obliga a que los eventos estén siempre por encima de la rejilla de selección */
+.fc-v-event {
+    z-index: 10 !important;
+    cursor: pointer !important;
+}
+
+.fc-event-main {
+    pointer-events: auto !important; /* Asegura que el contenido interno del evento detecte el mouse */
+}
+
+/* Evita que el área de "selección" transparente tape tus eventos */
+.fc-timegrid-slots, .fc-timegrid-cols {
+    z-index: 1;
+}
+.pointer {
+    cursor: pointer;
+}
+/* Quitar los puntos feos y poner barras elegantes */
+.fc-daygrid-event {
+    border-radius: 4px !important;
+    padding: 2px 5px !important;
+    font-size: 0.85rem !important;
+    border: none !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), 
+            0 25px 50px rgba(0,0,0,0.1);
+    margin-bottom: 2px !important;
+}
+
+/* Color de la cabecera (L, M, M, J...) */
+.fc-col-header-cell {
+    background-color: #f8f9fa;
+    padding: 10px 0 !important;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #9c1c3f; /* Tu color corporativo */
+}
+
+/* Resaltar el día actual */
+.fc-day-today {
+    background-color: #8383833e !important;
+}
+.notificaciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+}
+
+.card-notif {
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    border-left: 6px solid #9c1c3f; /* Color Unicasa */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.4s;
+}
+
+.card-notif:hover {
+    transform: translateX(5px);
+}
+
+.card-notif.RESERVA.CREADA { border-left-color: #27ae60; } /* Verde para nuevos */
+.card-notif.RESERVA.ELIMINADA { border-left-color: #da0004; }  /* Rojo para eliminados */
+.card-notif.RESERVA.EDITADA { border-left-color: #facf12; }
+.card-notif.RESERVA.COMPLETADA { border-left-color: #01ffd5; }
+.card-notif.RESERVA.APROBADA { border-left-color: #ff5500; }
+
+
+.card-notif strong { display: block; margin-bottom: 5px; color: #333; }
+.card-notif p { margin: 0; color: #666; font-size: 0.95rem; }
+.card-notif small { color: #aaa; display: block; margin-top: 10px; text-align: right; }
+
+/* Tarjeta que aún no se ha leído */
+.card-notif.nueva {
+    background-color: #fff;
+    font-weight: 500;
+}
+
+/* Tarjeta ya leída (se vuelve un poco más gris/transparente) */
+.card-notif.leida {
+    background-color: #f9f9f9;
+    opacity: 0.7;
+}
+
+/* Estilo para notificaciones NO leídas (Nuevas) */
+.card-notif.nueva {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+/* Estilo para cuando ya se han leído */
+.card-notif.leida {
+    background-color: #f8f9fa; /* Gris muy claro */
+    opacity: 0.7; /* Un poco de transparencia */
+    cursor: default;
+}
+
+.punto-nuevo {
+    color: #1c94f0;
+    font-size: 1.2rem;
+    margin-left: 8px;
+    vertical-align: center;
+}
+.main-content.escenario-3d {
+    perspective: 2000px;
+    overflow: hidden;
+    height: 100vh;
+    background: #f4f7f6;
+}
+
+/* 2. El Cubo (Pentágono ahora) */
+.cubo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    /* El centro de rotación debe estar atrás */
+    transform: translateZ(-800px); 
+}
+
+.seccion-pantalla.cara {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    backface-visibility: hidden;
+    background: #f4f7f6;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Recuperamos tu scroll */
+}
+
+/* --- POSICIONAMIENTO DE LAS 5 CARAS --- */
+/* Cada una gira 72 grados más que la anterior */
+.frontal        { transform: rotateY(0deg) translateZ(800px); }
+.derecha        { transform: rotateY(72deg) translateZ(800px); }
+.izquierda      { transform: rotateY(144deg) translateZ(800px); }
+.cara-extra-1   { transform: rotateY(216deg) translateZ(800px); } /* Estadísticas */
+.cara-extra-2   { transform: rotateY(288deg) translateZ(800px); } /* Configuración */
+
+/* --- ANIMACIONES DE NAVEGACIÓN (Giro opuesto) --- */
+.mostrar-calendario    { transform: translateZ(-800px) rotateY(0deg); }
+.mostrar-tareas        { transform: translateZ(-800px) rotateY(-72deg); }
+.mostrar-notif         { transform: translateZ(-800px) rotateY(-144deg); }
+.mostrar-estadisticas  { transform: translateZ(-800px) rotateY(-216deg); }
+.mostrar-configuracion { transform: translateZ(-800px) rotateY(-288deg); }
+
+/* El enlace de "+ Ver más" */
+.fc-daygrid-more-link {
+    color: #9c1c3f !important; /* El color guinda/rojo de tu marca */
+    font-weight: bold;
+    font-size: 0.85em;
+    text-decoration: none;
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.fc-daygrid-more-link:hover {
+    background-color: rgba(156, 28, 63, 0.1);
+    text-decoration: underline;
+}
+
+/* El cuadro flotante (popover) que aparece al hacer clic */
+.fc-popover {
+    background-color: #c4c2c2bb !important; /* El color de fondo que desees */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 10) !important; /* Ajusté el alpha para que no sea tan oscuro */
+    border: none !important;
+    border-radius: 8px !important;
+    z-index: 9999 !important;
+}
+
+.fc-popover-header {
+    background: #9c1c3f !important;
+    color: white !important;
+    border-radius: 8px 8px 0 0 !important;
+}
+/* Personalizar el scroll para las caras del cubo */
+.seccion-pantalla.cara::-webkit-scrollbar {
+    width: 8px;
+}
+
+.seccion-pantalla.cara::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+}
+
+.seccion-pantalla.cara::-webkit-scrollbar-thumb {
+    background: #9c1c3f; /* Tu color de marca */
+    border-radius: 10px;
+}
+
+/* SCROLL FUERA */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Altura exacta de la pantalla */
+    width: 100vw;  /* Ancho exacto de la pantalla */
+    overflow: hidden; /* Prohibido el scroll aquí */
+}
+
+/* estadisticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.stat-card-graph {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), 
+            0 25px 50px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-card-graph:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card-graph h3 {
+    color: #9c1c3f; /* Tu Vinotinto */
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #f8f8f8;
+    padding-bottom: 10px;
+}
+
+.canvas-holder { height: 300px; }
+.canvas-holder-large { height: 400px; }
+.full-width { grid-column: 1 / -1; }
+
+/* Forzar que SweetAlert2 esté siempre al frente de todo */
+.swal2-container {
+    z-index: 99999 !important;
+}
+/* Efecto opcional para desenfocar lo que está atrás del SweetAlert */
+body.swal2-shown > *:not(.swal2-container) {
+    filter: blur(2px);
+    transition: filter 0.3s;
+}
+
+/* configuracion */
+.config-info-card {
+    display: flex;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Sombra suave como las otras */
+    margin-top: 30px;
+    align-items: center;
+    gap: 40px;
+    border-left: 5px solid #9c1c3f; /* Detalle vinotinto de Unicasa */
+}
+
+.info-divider {
+    width: 1px;
+    height: 60px;
+    background: #eee;
+}
+
+.system-tag {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #9c1c3f;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.location-clock-group h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.8rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.info-section h3 { margin: 0; color: #333; }
+.info-section p { margin: 5px 0 0; color: #777; font-size: 0.9rem; }
+
+
+/* Hacer la línea roja y el triángulo más llamativos */
+.fc .fc-timegrid-now-indicator-line {
+    border-color: #c11515 !important; /* Rojo corporativo Unicasa */
+    border-width: 1px !important;
+    box-shadow: 0 0 5px rgba(211, 47, 47, 0.5); /* Brillo sutil */
+    z-index: 10 !important;
+}
+
+/* Animación de pulso para la reunión que viene */
+@keyframes pulsoProximo {
+    0% { box-shadow: 0 0 10px rgba(255, 193, 7, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(255, 193, 7, 0.8); }
+    100% { box-shadow: 0 0 10px rgba(255, 193, 7, 0.4); }
+}
+
+.evento-proximo-pulso {
+    animation: pulsoProximo 2s infinite ease-in-out;
+    transition: all 0.3s ease;
+}
+.proxima-reunion-banner {
+    background: #f0f0f0;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,10);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 5px solid #9c1c3f; /* El rojo Unicasa */
+}
+
+#label-proxima { color: #666; font-size: 0.9em; }
+
+#nombre-reunion { 
+    color: #333; 
+    font-size: 1.1em; 
+    font-weight: bold;
+    /* Esto evita que se amontone si los nombres son muy largos */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 600px; 
+}
+
+.badge-tiempo {
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+.fc-timegrid-event-harness {
+    transition: transform 0.3s ease;
+}
+
+.proxima-reunion-banner:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+    transition: all 0.2s ease;
+}
+.acciones-flex {
+    display: flex;
+    gap: 8px; /* Espacio entre botones */
+    justify-content: center;
+}
+
+.acciones-flex button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s, color 0.2s;
+    padding: 5px;
+}
+
+.acciones-flex button:hover {
+    transform: scale(1.2);
+}
+
+/* Colores por acción */
+.btn-icon-ver { color: #3498db; }    /* Azul */
+.btn-icon-editar { color: #f39c12; } /* Naranja */
+.btn-icon-check { color: #28a745; }  /* Verde Unicasa */
+.btn-icon-borrar { color: #e74c3c; } /* Rojo */
+.btn-icon-pin { color: #9b59b6; }
+.btn-icon-pin:hover { color: #8e44ad; }
+
+/* Botón de Archivar (Color Azul Medianoche/Elegante) */
+.btn-icon-archivar {
+    background-color: #2c3e50 !important;
+    color: white !important;
+    padding: 5px 12px !important;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3s;
+}
+
+.btn-icon-archivar:hover {
+    background-color: #1a252f !important;
+}
+
+/* Texto de espera para usuarios no admin */
+.status-espera {
+    color: #f39c12;
+    font-weight: 600;
+    font-size: 0.85rem;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+/* La tabla debe ocupar el 100% y no permitir que las celdas colapsen */
+.tabla-tareas {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Cambiamos a auto para que sea más flexible */
+}
+
+/* Columna de Actividad: Crece todo lo que pueda */
+.tabla-tareas th:nth-child(1), 
+.tabla-tareas td:nth-child(1) {
+    width: auto; 
+    min-width: 250px;
+}
+
+/* Forzar que las descripciones largas bajen de línea sin empujar a los demás */
+.tarea-desc {
+    display: block;
+    color: #666;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word; /* Rompe palabras solo si es necesario */
+    max-width: 400px; /* Límite para que no se coma toda la pantalla */
+}
+
+/* Columnas de la derecha: Anchos fijos para que no se amontonen */
+.tabla-tareas th:nth-child(2), .tabla-tareas td:nth-child(2) { width: 140px; } /* Fecha */
+.tabla-tareas th:nth-child(3), .tabla-tareas td:nth-child(3) { width: 180px; } /* Personal */
+.tabla-tareas th:nth-child(4), .tabla-tareas td:nth-child(4) { width: 110px; } /* Estado */
+.tabla-tareas th:nth-child(5), .tabla-tareas td:nth-child(5) { width: 160px; } /* Acciones */
+
+/* Espaciado interno para que no se peguen los bordes */
+.tabla-tareas td {
+    padding: 12px 8px;
+    vertical-align: middle;
+}
+
+/* Ajuste del contenedor de botones */
+.acciones-flex {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    flex-wrap: nowrap; /* Evita que los botones se bajen de línea */
+}
+/* Ajuste para la columna de Fecha y Hora */
+.tabla-tareas th:nth-child(2), 
+.tabla-tareas td:nth-child(2) { 
+    width: 170px; 
+    vertical-align: middle;
+    padding: 10px 5px;
+}
+
+.rango-fechas strong {
+    color: #333;
+}
+
+/* Un pequeño separador visual opcional */
+.fecha-item:first-child {
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 2px;
+}
+/* El contenedor blanco */
+.tabla-scroll {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box; /* Evita que el padding empuje la tabla hacia afuera */
+    overflow: hidden; 
+}
+
+.tabla-tareas {
+    width: 100%;
+    table-layout: fixed; /* <--- ESTO ES LO MÁS IMPORTANTE */
+    border-collapse: collapse;
+}
+
+/* Forzar que el texto "KAHJK..." se rompa y baje */
+.tarea-desc {
+    word-break: break-all; /* Rompe el texto sin espacios */
+    overflow-wrap: break-word;
+    white-space: normal;
+    display: block;
+    max-width: 100%;
+}
+
+/* Asignación de anchos para que nada se amontone */
+.tabla-tareas th:nth-child(1) { width: 30%; } /* Actividad */
+.tabla-tareas th:nth-child(2) { width: 22%; } /* Fecha y Hora */
+.tabla-tareas th:nth-child(3) { width: 18%; } /* Personal */
+.tabla-tareas th:nth-child(4) { width: 12%; } /* Estado */
+
+/* Contenedor principal (Fondo oscuro) */
+.modal-personalizado {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fondo más oscuro para enfoque */
+    backdrop-filter: blur(4px); /* Efecto de desenfoque al fondo */
+    display: none; justify-content: center; align-items: center;
+    z-index: 9999;
+}
+
+/* Tarjeta del Modal */
+.modal-contenido-detalle {
+    background: #fff;
+    width: 90%; max-width: 550px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: slideUp 0.3s ease-out;
+}
+
+/* Header con la X a la derecha */
+.modal-header-detalle {
+    background: #f8f9fa;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between; /* Empuja el título a la izquierda y la X a la derecha */
+    align-items: center;
+}
+
+.modal-header-detalle h2 {
+    margin: 0; color: #9c1c3f; font-size: 1.4rem; font-weight: 700;
+}
+
+.cerrar-modal {
+    font-size: 28px; color: #aaa; cursor: pointer; transition: 0.2s;
+    line-height: 1;
+}
+
+.cerrar-modal:hover { color: #9c1c3f; transform: scale(1.1); }
+
+/* Cuerpo del detalle */
+.modal-body-detalle { padding: 25px; }
+
+.detalle-seccion label, .detalle-item label {
+    display: block; color: #888; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.caja-descripcion {
+    background: #fdfdfd; border: 1px solid #f0f0f0;
+    padding: 15px; border-radius: 8px; margin-bottom: 20px;
+}
+
+.caja-descripcion p { margin: 0; color: #444; line-height: 1.5; }
+
+/* Grid de información */
+.detalle-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+
+.detalle-item span { color: #222; font-weight: 500; font-size: 0.95rem; }
+
+/* Botón inferior */
+.modal-footer-detalle {
+    padding: 15px 25px; text-align: right; background: #f8f9fa;
+}
+
+.btn-entendido {
+    background: #9c1c3f; color: white; border: none;
+    padding: 10px 25px; border-radius: 6px; cursor: pointer;
+    font-weight: 600; transition: 0.3s;
+}
+
+.btn-entendido:hover { background: #7a1531; box-shadow: 0 4px 10px rgba(156, 28, 63, 0.3); }
+
+/* Animación de entrada */
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.card-header-notif {
+    display: flex;
+    flex-direction: column; /* Esto garantiza que el <small> baje */
+    align-items: flex-start;
+}
+/* Contenedor principal de la sidebar */
+.sidebar {
+    height: 100vh; /* Que ocupe todo el alto de la pantalla */
+    overflow-y: auto; /* Permite el scroll vertical */
+    scrollbar-width: none; /* Oculta el scroll en Firefox */
+    -ms-overflow-style: none; /* Oculta el scroll en IE y Edge */
+    /* ESPACIO EXTRA AL FINAL */
+    padding-bottom: 30px;
+}
+
+/* Oculta el scroll en Chrome, Safari y Opera */
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+.quick-look-panel {
+    /* Posicionamiento */
+    position: absolute !important;
+    bottom: 40% !important; 
+    left: 10% !important;
+    width: 100% !important; 
+    
+    /* Estética */
+    background-color: #121212 !important; 
+    border: 1px solid #ffa502 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.8) !important;
+    z-index: 9999 !important;
+    margin-bottom: 5px;
+
+    /* FADE: Usamos opacity en lugar de display para la transición */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Fade suave */
+    transform: translateY(5px); /* Pequeño desplazamiento inicial */
+    
+    pointer-events: none;
+}
+
+/* Mostrar con FADE al hacer hover */
+.indicador-card:hover .quick-look-panel {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0); /* Sube suavemente a su posición */
+}
+
+/* ELIMINAR EL PUMP: Forzamos que no haya cambios de escala al hacer clic */
+.indicador-card:active {
+    transform: none !important;
+    scale: 1 !important;
+}
+
+/* Ajuste del contenido */
+#quick-look-content {
+    background: #121212 !important;
+    color: white !important;
+    border-radius: 10px;
+}
+
+.quick-item {
+    padding: 8px; /* Un poco más de aire para que no se vea apretado */
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.quick-item:last-child {
+    border-bottom: none;
+}
+/* Línea de la hora en punto (más marcada) */
+.fc .fc-timegrid-slot-minor {
+    border-top-style: dotted; /* Las medias horas se ven como puntitos */
+    border-top-color: #e0e0e0;
+}
+
+/* Ajuste del texto lateral para que no se amontone */
+.fc .fc-timegrid-slot-label-cushion {
+    padding: 2px 4px;
+}
+/* Ajusta la altura de cada celda de tiempo */
+.fc .fc-timegrid-slot {
+    height: 2.5em !important; /* Prueba con 3em, 4em o 5em según qué tan grandes las quieras */
+    border-bottom: 1px solid #eaeaea; 
+}
+
+/* Centra el texto de la hora verticalmente si las celdas son muy altas */
+.fc .fc-timegrid-slot-label {
+    vertical-align: middle;
+}
+/* --- CONTENEDOR GENERAL --- */
+#pantalla-tareas .container-fluid {
+    padding-top: 20px !important;
+    background-color: #fcfcfc; /* Un fondo sutil para que las tarjetas blancas resalten */
+}
+
+/* --- TARJETAS DE INDICADORES (KPIs) --- */
+.stat-mini-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border-left: 5px solid #6b0f1a; /* Rojo Unicasa */
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 95px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); /* Sombra más suave y moderna */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-bottom: 15px;
+}
+
+.stat-mini-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(107, 15, 26, 0.1); /* Brillo sutil del color vinotinto */
+}
+
+.stat-mini-card .label {
+    font-size: 0.75em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.stat-mini-card .value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2d2d2d;
+    line-height: 1;
+}
+
+/* Variaciones de color para estados */
+.border-left-danger { border-left-color: #dc3545 !important; }
+.border-left-success { border-left-color: #28a745 !important; }
+
+/* --- BARRA DE PROGRESO INTERNA --- */
+.progress-bar-mini {
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 12px;
+}
+
+.progress-bar-mini div {
+    height: 100%;
+    background: linear-gradient(90deg, #6b0f1a, #9e1b2b); /* Degradado elegante */
+    border-radius: 10px;
+    transition: width 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* --- TARJETA DEL CALENDARIO / GANTT --- */
+.calendar-card {
+    background: #ffffff;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0.03);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+/* Estilo para el título interno de los cuadros */
+.calendar-card h6 {
+    font-weight: 700;
+    font-size: 0.9em;
+    color: #444;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.calendar-card h6 i {
+    margin-right: 10px;
+    color: #6b0f1a;
+}
+
+/* --- AJUSTES DEL GANTT --- */
+#gantt-target {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Scroll personalizado para la lista de tareas */
+#contenedor-lista-tareas {
+    max-height: 450px;
+    overflow-y: auto;
+    padding: 0 !important; /* Para que la tabla llegue a los bordes */
+}
+
+#contenedor-lista-tareas::-webkit-scrollbar {
+    width: 6px;
+}
+#contenedor-lista-tareas::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 10px;
+}
+
+.color-vinotinto { color: #6b0f1a !important; }
+
+/* Contenedor principal del Popup */
+.gantt-popup-custom {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    width: 250px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Encabezado del Popup */
+.gantt-popup-header {
+    background: #6b0f1a; /* Rojo Unicasa */
+    color: white;
+    padding: 10px 15px;
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Cuerpo del Popup */
+.gantt-popup-body {
+    padding: 15px;
+}
+
+.gantt-task-title {
+    margin: 0 0 8px 0;
+    font-size: 1em;
+    font-weight: 700;
+    color: #333;
+}
+
+.gantt-task-desc {
+    font-size: 0.85em;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.gantt-task-meta {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 10px;
+    font-size: 0.8em;
+    color: #888;
+}
+
+/* Mini barra de progreso dentro del popup */
+.gantt-task-progress-wrapper {
+    margin-top: 8px;
+}
+
+.progress-mini {
+    height: 4px;
+    background: #eee;
+    border-radius: 2px;
+    margin-top: 4px;
+}
+
+.progress-mini div {
+    height: 100%;
+    background: #6b0f1a;
+    border-radius: 2px;
+}
+.btn-close-gantt {
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 2px 5px;
+    transition: all 0.2s ease;
+    line-height: 1;
+    z-index: 100000;
+}
+
+.btn-close-gantt:hover {
+    color: #ffb3b3; /* Un tono rosado/blanco para que resalte en el rojo */
+    transform: scale(1.2);
+}
+/* Reset de estilos de Frappe que molestan */
+.details-container {
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none;
+}
+/* 1. Eliminar la flecha negra y el recuadro oscuro de fondo */
+.grid-row.active {
+    fill: transparent !important; /* Quita el fondo gris/negro de la fila activa */
+}
+
+.bar-wrapper.active .bar {
+    stroke: #6b0f1a !important; /* En lugar de resaltar el fondo, le damos un borde vinotinto */
+    stroke-width: 2;
+}
+
+/* Ocultar cualquier flecha o marcador por defecto de la librería */
+.handle-group {
+    display: none !important; 
+}
+
+/* 2. Agrandar el diagrama (Más largo hacia abajo) */
+#gantt-target {
+    min-height: 450px; /* Aumentamos el largo vertical */
+    background: #fff;
+    border-radius: 8px;
+}
+
+/* Ajustar el SVG interno para que use todo el espacio */
+#gantt-target svg {
+    height: 450px !important; 
+}
+
+/* 3. Mejorar el estilo de las barras para que se vean "Pro" */
+.bar-wrapper .bar {
+    rx: 6; /* Bordes más redondeados en las barras */
+    ry: 6;
+}
+
+.bar-wrapper .bar-progress {
+    fill: #6b0f1a !important; /* Color de progreso Unicasa */
+    rx: 6;
+    ry: 6;
+}
+/* Colores de prioridad */
+.bar-prioridad-1 .bar { fill: #6b0f1a !important; }
+.bar-prioridad-2 .bar { fill: #ffc107 !important; }
+.bar-prioridad-3 .bar { fill: #28a745 !important; }
+
+/* Quitar flecha negra del popup */
+.details-container::after, .details-container::before {
+    display: none !important;
+}
+/* Hacer que los números de los días se vean como una lista ordenada */
+.gantt .lower-text {
+    font-size: 13px !important;
+    font-weight: bold !important;
+    fill: #444 !important;
+}
+
+/* Resaltar el MES (Abril, Marzo) para que no se pierda */
+.gantt .upper-text {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    fill: #6b0f1a !important; /* Rojo Unicasa */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Añadir líneas verticales para separar cada día claramente */
+.gantt .grid-header {
+    fill: #ffffff !important;
+    stroke: #e0e0e0 !important;
+}
+
+.gantt .tick {
+    stroke: #e0e0e0 !important;
+    stroke-width: 1px;
+}
+
+/* Colorear el fin de semana para dar contexto visual */
+.gantt .holiday-back {
+    fill: #fdf2f2 !important;
+}
+/* Línea divisoria vertical fuerte al inicio de cada mes */
+.gantt .grid-row.month-start, 
+.gantt .tick.month-start {
+    stroke: #6b0f1a !important; /* Rojo Unicasa para la división */
+    stroke-width: 2px !important;
+}
+
+/* Sombreado sutil para la primera columna del mes */
+.gantt .grid-row.month-start {
+    fill: rgba(107, 15, 26, 0.05) !important;
+}
+
+/* Mejorar el texto del mes para que se centre visualmente */
+.gantt .upper-text {
+    font-size: 16px !important;
+    font-weight: bold !important;
+    fill: #6b0f1a !important;
+    text-transform: uppercase;
+}
+
+/* Asegurar que los números de los días tengan su separador */
+.gantt .tick {
+    stroke: #e0e0e0 !important;
+    stroke-width: 1px;
+}
+/* Dibuja la línea divisoria vertical cuando detecta el inicio de mes */
+/* Buscamos las líneas de la cuadrícula que coinciden con el cambio de mes */
+.gantt .tick:nth-child(2n) {
+    stroke-width: 0.5; /* Línea normal */
+}
+
+/* Forzar una línea gruesa cada vez que el calendario llega al borde de un mes */
+/* Esto requiere que tu CSS identifique el contenedor de la cuadrícula */
+.gantt .grid-header {
+    fill: #ffffff !important;
+}
+
+/* EL TRUCO: Resaltar el inicio de mes mediante la clase de la cuadrícula */
+/* Añadimos un borde izquierdo a las celdas que inician el mes */
+.gantt .grid-row {
+    stroke: #e0e0e0;
+}
+
+/* Línea divisoria reforzada (Manual para el SVG) */
+path.domain {
+    display: none;
+}
+
+/* Estilo para que el texto del mes (ABRIL) se separe visualmente */
+.gantt .upper-text {
+    font-size: 16px !important;
+    font-weight: 900 !important;
+    fill: #6b0f1a !important; 
+    transform: translateY(-5px); /* Lo subimos un poco para darle aire */
+}
