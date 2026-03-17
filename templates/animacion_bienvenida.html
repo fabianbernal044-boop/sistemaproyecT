@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="3;url=/dashboard"> <title>Bienvenido - Unicasa</title>
+    <style>
+        body { font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #9c1c3f; }
+        .card { background: rgb(255, 255, 255); padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 450px; border-top: 8px solid #430a19; /* Rojo Unicasa */ }
+        
+        .logo-unicasa { width: 180px; margin-bottom: 20px; }
+
+        .check-circle { width: 70px; height: 70px; background: #28a745; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; animation: bounceIn 1.3s; }
+        .check-icon { color: white; font-size: 40px; font-weight: bold; }
+
+        h2 { color: #333; margin-bottom: 10px; }
+        p { color: #666; font-size: 1.1em; }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #8b0a1b; border-radius: 50%; width: 15px; height: 15px; animation: spin 2s linear infinite; display: inline-block; margin-left: 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img src="{{ url_for('static', filename='logo_unicasa.png') }}" alt="Unicasa Logo" class="logo-unicasa">
+        
+        <div class="check-circle">
+            <span class="check-icon">✓</span>
+        </div>
+
+        <h2>¡Bienvenido, {{ nombre }}!</h2>
+        <p>Redirigiendo al panel principal <span class="loader"></span></p>
+    </div>
+</body>
+</html>

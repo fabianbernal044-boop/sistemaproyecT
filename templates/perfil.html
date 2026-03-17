@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - ProyecT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script> 
+    <style>
+        :root {
+            --vinotinto: #9c1c3f; /* Color exacto de Unicasa */
+            --vinotinto-oscuro: #6b0f1a;
+            --negro-suave: #1a1a1a;
+            --gris-fondo: #f8f9fa;
+            --blanco: #ffffff;
+            --sombra: 0 15px 35px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* SCROLLBAR PERSONALIZADO VINOTINTO */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { 
+            background: var(--vinotinto); 
+            border-radius: 10px; 
+        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--vinotinto-oscuro); }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .profile-card {
+            width: 100%;
+            max-width: 800px;
+            
+            background: var(--blanco);
+            border-radius: 24px;
+            box-shadow: var(--sombra);
+            overflow-y: auto; /* Activa el scroll */
+            position: relative;
+        }
+
+        .card-header-accent {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            height: 10px;
+            background: linear-gradient(90deg, var(--vinotinto-oscuro), var(--vinotinto));
+        }
+
+        .profile-content { padding: 50px; }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .photo-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--blanco);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .upload-overlay {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: var(--vinotinto);
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 4px solid var(--blanco);
+            transition: var(--transition);
+        }
+
+        .upload-overlay:hover { transform: rotate(15deg) scale(1.1); background: var(--negro-suave); }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group.full-width { grid-column: span 2; }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--vinotinto);
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #edf2f7;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: var(--transition);
+            background: #fdfdfd;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--vinotinto);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(156, 28, 63, 0.1);
+        }
+
+        .actions {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-save {
+            background: var(--vinotinto);
+            color: white;
+            padding: 16px 45px;
+            border-radius: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(156, 28, 63, 0.3);
+            transition: var(--transition);
+        }
+
+        .btn-save:hover {
+            background: var(--negro-suave);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-back {
+            color: var(--gris-texto);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        /* Estilo para campos no editables */
+        .readonly-field {
+        background: #f8f9fa !important;
+        color: #888 !important;
+        cursor: not-allowed;
+        border-color: #eee !important;
+        }
+        /* Definición de la animación */
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+        transform: translateY(10px); /* Opcional: un pequeño movimiento hacia arriba */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Clase que aplicaremos al body */
+.fade-in-content {
+    animation: fadeInPage 1.1s ease-out forwards;
+}
+    </style>
+</head>
+<body class="fade-in-content">
+    <div class="profile-card">
+        <div class="card-header-accent"></div>
+        <div class="profile-content">
+            <div class="profile-header">
+                <div class="photo-wrapper">
+                    {% if usuario.foto_perfil %}
+                        <img src="/static/uploads/{{ usuario.foto_perfil }}" class="profile-pic">
+                    {% else %}
+                        <img src="https://ui-avatars.com/api/?name={{ usuario.nombre }}&background=9c1c3f&color=fff" class="profile-pic">
+                    {% endif %}
+                    <label for="foto-input" class="upload-overlay"><i class="fas fa-camera"></i></label>
+                </div>
+                <form id="form-foto" action="/subir_foto" method="POST" enctype="multipart/form-data" style="display:none">
+                    <input type="file" id="foto-input" name="foto" onchange="this.form.submit()">
+                </form>
+                <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+                <p style="color: #666;">ID: {{ usuario.cedula }} | {{ usuario.cargo_nombre }}</p>
+            </div>
+
+            <form action="/actualizar_perfil" method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                    <input type="text" name="nombre" value="{{ usuario.nombre }}">
+                </div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" value="{{ usuario.apellido }}">
+                </div>
+                <div class="form-group">
+                    <label>Cédula de Identidad</label>
+                    <input type="text" name="cedula" value="{{ usuario.cedula }}">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="text" name="telefono" value="{{ usuario.telefono }}">
+                </div>
+                
+                <div class="form-group">
+                    <label>Departamento (Solo Lectura)</label>
+                    <input type="text" class="readonly-field" value="{{ usuario.nombre_departamento }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Cargo (Solo Lectura)</label>
+                    <input type="text" class="readonly-field" value="{{ usuario.cargo_nombre }}" readonly>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Correo Institucional</label>
+                    <input type="email" name="correo" value="{{ usuario.correo }}">
+                </div>
+                <div class="form-group full-width">
+                    <label>Nueva Contraseña</label>
+                    <input type="password" name="password" placeholder="Dejar en blanco para no cambiar">
+                </div>
+            </div>
+
+                <div class="actions">
+                    <a href="{{ url_for('dashboard') }}" class="btn-back"><i class="fas fa-chevron-left"></i> Regresar</a>
+                    <button type="submit" class="btn-save">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

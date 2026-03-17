@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario: ProyecT</title>
+    <style>
+        :root {
+            --vinotinto: #6b0f1a;
+            --rojo: #d90429;
+            --gris-suave: #f8f9fa;
+            --gris-borde: #e0e0e0;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .register-container {
+            max-width: 700px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .register-header h2 {
+            color: var(--vinotinto);
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .register-header p {
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group { margin-bottom: 15px; }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--gris-borde);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-sizing: border-box;
+            background-color: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--vinotinto);
+            box-shadow: 0 0 8px rgba(107, 15, 26, 0.1);
+        }
+
+        .btn-register {
+            background: var(--vinotinto);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: var(--transition);
+            margin-top: 25px;
+        }
+
+        .btn-register:hover {
+            background: var(--rojo);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(217, 4, 41, 0.3);
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-link a {
+            color: var(--vinotinto);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <div class="register-header">
+            <h2>Crear nueva cuenta</h2>
+            <p>Crea tu cuenta para el sistema de planificación de Supermercados Unicasa C.A</p>
+        </div>
+
+        <form action="/registrar" method="POST">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" placeholder="Tu apellido" required>
+                </div>
+                <div class="form-group">
+                    <label>Cédula de Identidad</label>
+                    <input type="text" name="cedula" placeholder="Ej: 25123456" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="text" name="telefono" placeholder="Ej: 04141234567" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Departamento</label>
+                    <select name="id_departamento" required>
+                        <option value="" disabled selected>Selecciona tu área</option>
+                        {% for dep in departamentos %}
+                        <option value="{{ dep.id }}">{{ dep.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Sede</label>
+                    <select name="id_sede" required>
+                        <option value="" disabled selected>Selecciona tu ubicación</option>
+                        {% for sede in sedes %}
+                        <option value="{{ sede.id }}">{{ sede.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Cargo / Puesto</label>
+                    <select name="id_cargo" required>
+                        <option value="" disabled selected>Selecciona tu cargo</option>
+                        {% for cargo in cargos %}
+                        <option value="{{ cargo.id }}">{{ cargo.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" name="email" placeholder="usuario@unicasa.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" placeholder="Mínimo 8 caracteres" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" name="confirm_password" placeholder="Repite tu contraseña" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-register">Crear Cuenta</button>
+        </form>
+
+        <div class="footer-link">
+            ¿Ya tienes una cuenta? <a href="/">Inicia sesión aquí</a>
+        </div>
+    </div>
+</body>
+</html>

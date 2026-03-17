@@ -1,0 +1,872 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Planificación: ProyecT - Unicasa C.A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.6.1/frappe-gantt.css">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/es.global.min.js'></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.6.1/frappe-gantt.min.js"></script>
+     
+</head>
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<body>
+    <input type="hidden" id="sesion_usuario_id" value="{{ session.get('usuario_id', 0) }}">
+<input type="hidden" id="sesion_es_admin" value="{{ 'True' if session.get('es_admin') else 'False' }}">
+    <audio id="sonido-notificacion" src="/static/notif.mp3" preload="auto"></audio>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1 style="color: white; margin: 0;">Supermercados Unicasa C.A</h1>
+                <small>ProyecT: Sistema de Planificación</small>
+                
+            </div>
+            <div style="padding: 15px; margin: 10px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px);">
+    
+    <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 12px; font-weight: bold;">Resumen de hoy</p>
+    
+    <div class="indicador-card" onclick="navegar('calendario', document.getElementById('btn-nav-calendario'))" style="display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; border-left: 3px solid #ff4757; cursor: pointer; transition: 0.3s;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.1rem;">📅</span>
+            <span style="font-size: 0.85rem; color: #eee;">Reservas - Hoy</span>
+        </div>
+        <b id="count-reservas" style="font-size: 1rem; color: #fff; background: rgba(255,71,87,0.2); padding: 2px 8px; border-radius: 5px;">0</b>
+    </div>
+
+    <div class="indicador-card" onclick="navegar('tareas', document.getElementById('btn-nav-tareas'))" style="display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; border-left: 3px solid #2ed573; cursor: pointer; transition: 0.3s;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.1rem;">📝</span>
+            <span style="font-size: 0.85rem; color: #eee;">Tareas - Hoy</span>
+        </div>
+        <b id="count-tareas" style="font-size: 1rem; color: #fff; background: rgba(46,213,115,0.2); padding: 2px 8px; border-radius: 5px;">0</b>
+    </div>
+
+    <div class="indicador-card" 
+     onclick="navegar('notificaciones', document.getElementById('btn-nav-notificaciones')); mostrarNotificaciones()" 
+     style="position: relative; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 8px; border-left: 3px solid #ffa502; cursor: pointer; transition: 0.3s;"
+     id="card-notificaciones">
+    
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.1rem;">🔔</span>
+        <span style="font-size: 0.85rem; color: #eee;">Notificaciones</span>
+    </div>
+    <b id="count-notif" style="font-size: 1rem; color: #fff; background: rgba(255,165,2,0.2); padding: 2px 8px; border-radius: 5px;">0</b>
+
+    <div class="quick-look-panel">
+        <div style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: bold; font-size: 0.75rem; color: #ffa502;">
+            ÚLTIMOS AVISOS
+        </div>
+        <div id="quick-look-content" style="max-height: 200px; overflow-y: auto;">
+            <p style="padding: 15px; font-size: 0.7rem; color: rgba(255,255,255,0.4); text-align: center; margin: 0;">
+                No hay avisos recientes
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+    <style>
+        .indicador-card:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .indicador-card:active {
+            transform: scale(0.95);
+        }
+    </style>
+
+            <nav class="menu">
+                <div style="padding: 3px; margin: 10px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; backdrop-filter: blur(5px);"></div>
+                <a href="#" id="btn-nav-calendario" class="active" onclick="navegar('calendario', this)">📅 Calendario</a>
+                <a href="#" id="btn-nav-tareas" onclick="navegar('tareas', this)">📋 Eventos/Tareas</a>
+                <a href="#" id="btn-nav-notificaciones" onclick="navegar('notificaciones', this); mostrarNotificaciones()">🔔 Notificaciones <span class="nav-badge" style="display: none;">0</span></a>
+                <a href="#" id="btn-nav-estadisticas" onclick="navegar('estadisticas', this)"><span>📊 Estadísticas</span>
+                <a href="#" id="btn-nav-configuracion" onclick="navegar('configuracion', this)">⚙️ Configuración</a>
+                <button onclick="abrirModalAuditoria()" class="btn-auditoria" style="background-color: #800020; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; width: 100%;">
+                    Ver Historial
+                </button>
+            </nav>
+            <style>
+    .sidebar-user-avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .user-info-box:hover .sidebar-user-avatar {
+        border-color: var(--vinotinto);
+        transform: scale(1.05);
+    }
+
+    .user-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-grow: 1;
+        margin-right: 12px;
+    }
+    /* Estilo para el Modal Selector */
+.modal-personalizado {
+    display: none; /* Se activa con 'flex' desde JS */
+    position: fixed;
+    z-index: 999999 !important; /* Prioridad máxima sobre el calendario */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro traslúcido */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px); /* Efecto de desenfoque moderno */
+}
+
+.modal-contenido {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-top: 8px solid #6b0f1a; /* El vinotinto de Unicasa */
+}
+
+.opciones-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn-opcion-unicasa {
+    flex: 1;
+    padding: 20px 15px;
+    border: none;
+    border-radius: 12px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: all 0.7s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.4;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-opcion-unicasa:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    filter: brightness(1.1);
+}
+
+.btn-opcion-unicasa small {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    display: block;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fondo oscuro transparente */
+    display: none; /* Se activa con JS */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Por encima de todo */
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 450px;
+    max-width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+#modalReserva .modal-content {
+    background-color: white !important;
+    color: #333 !important;
+    border: 2px solid #6b0f1a;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+#modalReserva label {
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+/* Fuerza la visibilidad de la lista de sugerencias */
+#listaSugerencias {
+    display: none; 
+    position: absolute !important;
+    top: 100% !important; /* Se pega justo debajo del input */
+    left: 0 !important;
+    width: 100% !important;
+    background-color: white !important;
+    border: 2px solid #6b0f1a !important; /* Borde guinda Unicasa para que resalte */
+    border-radius: 0 0 8px 8px !important;
+    z-index: 99999 !important; /* Por encima de cualquier modal de Bootstrap */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+}
+
+#listaSugerencias li {
+    padding: 10px 15px !important;
+    cursor: pointer !important;
+    border-bottom: 1px solid #eee !important;
+    color: #333 !important;
+    background: white !important;
+}
+
+#listaSugerencias li:hover {
+    background-color: #f1f1f1 !important;
+    color: #6b0f1a !important;
+}
+.pointer {
+    cursor: pointer;
+}
+
+/* Contenedor relativo necesario */
+.busqueda-container {
+    position: relative !important;
+}
+</style> 
+           <div style="padding: 10px 15px 30px 15px; margin-top: auto; flex-shrink: 0;">
+    
+    <div class="user-info">
+        <a href="{{ url_for('perfil') }}" class="user-info-box" 
+           style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: space-between; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.05); transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1);"
+           onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(-2px)';"
+           onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.transform='translateY(0)';"
+        >
+            <div class="user-details">
+                <p style="margin: 0; font-size: 0.9rem; color: #fff;"><strong>{{ usuario.nombre_completo }}</strong></p>
+                <small style="opacity: 0.7; font-size: 0.7rem; display: block; margin-top: 2px;">
+                    {{ usuario.cargo }} | {{ usuario.departamento }}
+                </small>
+            </div>
+
+            <div class="user-photo">
+                {% if usuario.foto %}
+                    <img src="/static/uploads/{{ usuario.foto }}" class="sidebar-user-avatar" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #800020;">
+                {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ usuario.nombre_completo }}&background=6b0f1a&color=fff" class="sidebar-user-avatar" style="width: 38px; height: 38px; border-radius: 50%;">
+                {% endif %}
+            </div>
+        </a>
+    </div>
+
+    <a href="{{ url_for('logout') }}" class="btn-logout" 
+       style="display: block; margin-top: 15px; padding: 12px; text-align: center; background: #800020; color: #fff; border-radius: 10px; text-decoration: none; font-size: 0.85rem; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.2);"
+    >
+        🚪 Cerrar Sesión
+    </a>
+
+    
+
+</div>
+</aside>
+
+<!-- titulos de la sidebar animados 3D -->
+<main class="main-content escenario-3d">
+    <div id="cubo-principal" class="cubo mostrar-calendario">
+        
+        <section id="pantalla-calendario" class="seccion-pantalla cara frontal">
+            <header class="top-bar">
+                <div class="header-animated">
+                    <h1 class="title-elegant">Calendario de Actividades</h1>
+                    <div class="title-underline"></div>
+                </div>
+                <div class="header-btns">
+                    <button class="btn-primary" id="btnCrearGeneral" onclick="abrirSelector()">+ Crear Evento</button>
+                    <button id="btnExpandir" class="btn-secundario" onclick="toggleCalendarioGrande()">
+                        <i class="fas fa-expand-arrows-alt"></i> Pantalla Completa
+                    </button>
+                </div>
+                 
+            </header>
+             
+            <div class="calendar-card">
+                <div class="proxima-reunion-banner" style="display: flex; flex-direction: column; gap: 5px;">
+    <div id="seccion-progreso">
+        <i class="fas fa-play-circle" style="color: #28a745;"></i> 
+        <span style="color: #666;">En progreso:</span>
+        <strong id="reunion-progreso">Buscando...</strong>
+    </div>
+    
+    <div id="seccion-proxima">
+        <i class="fas fa-clock" style="color: #ffc107;"></i> 
+        <span style="color: #666;">Próxima:</span>
+        <strong id="nombre-reunion">Cargando...</strong>
+        <span id="tiempo-restante" class="badge-tiempo"></span>
+    </div>
+</div>
+                <div id='calendar'></div>
+                <div class="info-divider"></div>
+    <div class="info-section">
+        <span class="system-tag">UBICACIÓN Y TIEMPO</span>
+        <div class="location-clock-group">
+            <p><i class="fas fa-map-marker-alt"></i> Caracas, Venezuela</p>
+            <h1 id="live-clock">00:00:00 am</h1>
+        </div>
+    </div>
+            </div>
+        </section>
+
+        <section id="pantalla-tareas" class="seccion-pantalla cara derecha">
+    <header class="top-bar">
+        <div class="header-animated">
+            <h1 class="title-elegant">Control de Actividades</h1>
+            <div class="title-underline"></div>
+        </div>
+        <button class="btn-primary" id="btnCrearGeneral" onclick="abrirSelector()">+ Crear Evento</button>
+    </header>
+
+    <div class="row px-4 mb-3">
+        <div class="col-md-4">
+            <div class="stat-mini-card">
+                <span class="label">Progreso General</span>
+                <div class="value" id="total-progreso">0%</div>
+                <div class="progress-bar-mini"><div id="bar-total" style="width: 0%"></div></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-mini-card">
+                <span class="label">Tareas Críticas</span>
+                <div class="value color-vinotinto" id="tareas-criticas">0</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-mini-card">
+                <span class="label">Presupuesto Ejecutado</span>
+                <div class="value" id="total-presupuesto">$0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row px-4 mb-4">
+        <div class="col-lg-8">
+            <div class="calendar-card p-3" style="min-height: 300px;">
+                <h6 class="text-muted mb-3"><i class="fas fa-stream"></i> Cronograma de Actividades</h6>
+                <div id="gantt-target"></div> </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="calendar-card p-3 text-center">
+                <h6 class="text-muted mb-3">Distribución por Prioridad</h6>
+                <canvas id="chartPrioridades" style="max-height: 200px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-4 pb-5">
+        <div class="calendar-card" id="contenedor-lista-tareas">
+            </div>
+    </div>
+</section>
+
+        <section id="pantalla-notificaciones" class="seccion-pantalla cara izquierda">
+            <header class="top-bar">
+                <div class="header-animated">
+                    <h1 class="title-elegant">Centro de Notificaciones</h1>
+                    <div class="title-underline"></div>
+                </div>
+                <button class="btn-secundario" onclick="marcarTodoLeido()">Marcar como leído</button>
+            </header>
+
+            <div class="calendar-card">
+                <div id="contenedor-notificaciones" class="notificaciones-lista">
+                    <p style="text-align: center; color: #888; padding: 20px;">Cargando avisos...</p>
+                </div>
+            </div>
+        </section>
+<section id="pantalla-estadisticas" class="seccion-pantalla cara cara-extra-1">
+    <header class="top-bar">
+        <div class="header-animated">
+            <h1 class="title-elegant">Panel de Estadísticas</h1>
+            <div class="title-underline"></div>
+        </div>
+    </header>
+    <div class="stats-grid">
+        <div class="stat-card-graph">
+            <h3><i class="fas fa-door-open"></i> Uso de Salas</h3>
+            <div class="canvas-holder">
+                <canvas id="chartSalas"></canvas>
+            </div>
+        </div>
+
+        <div class="stat-card-graph">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 id="titulo-ranking"><i class="fas fa-users"></i> Ranking de Organizadores</h3>
+        <button onclick="toggleRanking()" style="background: #9c1c3f; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer;">
+            <i id="icono-flecha" class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+    <div class="canvas-holder">
+        <canvas id="chartUsuarios"></canvas>
+    </div>
+</div>
+        <div class="stat-card-graph full-width">
+    <div class="card-header-flex">
+        <h3 id="titulo-actividad"><i class="fas fa-calendar-week"></i> Actividad por Día</h3>
+        <button onclick="toggleActividad()" class="btn-change-blue">
+            <i id="icono-actividad" class="fas fa-clock"></i>
+        </button>
+    </div>
+    <div class="canvas-holder-large">
+        <canvas id="chartSemana"></canvas>
+    </div>
+</div>
+    </div>
+</section>
+
+<section id="pantalla-configuracion" class="seccion-pantalla cara cara-extra-2">
+    <header class="top-bar">
+        <div class="header-animated">
+            <h1 class="title-elegant">Configuración del Sistema</h1>
+            <div class="title-underline"></div>
+        </div>
+    </header>
+    <div class="config-info-card">
+    <div class="info-section">
+        <span class="system-tag">SISTEMA</span>
+        <h3>ProyecT <small>v0.0.1</small></h3>
+        <p><i class="fas fa-server"></i> Sistema de planificación de eventos</p>
+    </div>
+    
+    
+</div>
+</section>
+    </div>
+</main>
+
+<!-- MODAL SELECCION-->
+<div id="modalSelector" class="modal-personalizado" style="display: none;">
+    <div class="modal-contenido" style="text-align: center;">
+        <h2 class="title-elegant">¿Qué deseas realizar?</h2>
+        <p>Haz click en el tipo de acción que vayas a planificar</p>
+        
+        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 35px;">
+            <button class="btn-opcion-unicasa" onclick="abrirModalReserva()" style="background-color: #b4b4b4;">
+                <span style="font-size: 2rem;">🏢</span><br>
+                <strong>Reservar Sala:</strong><br>
+                <small style="opacity: 0.8; font-weight: normal;">Reserva y aparta salas de reuniones y espacios compartidos para cualquier eventualidad.</small>
+            </button>
+            
+            <button class="btn-opcion-unicasa" onclick="irAEventoPersonal()" style="background-color: #b7b7b7;">
+                <span style="font-size: 2rem;">📝</span><br>
+                <strong>Tarea / Evento:</strong><br>
+                <small style="opacity: 0.8; font-weight: normal;">Planifica actividades, inventarios, tareas propias o incluso incidentes que puedan ocurrir.</small>
+            </button>
+        </div>
+        
+        <button onclick="cerrarSelector()" style="margin-top: 25px; background: none; border: none; color: #888; cursor: pointer; text-decoration: underline;">
+            Cancelar y volver
+        </button>
+    </div>
+</div>
+
+
+<!-- MODAL DE LOS EVENTOS Y TAREAS-->
+<div id="modalEvento" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-tasks"></i> Nueva Planificación</h3>
+            <span class="close-modal" onclick="cerrarModal()">&times;</span>
+        </div>
+        
+        <form id="formEvento" onsubmit="guardarPlanificacionSQL(event)">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label><i class="fas fa-font"></i> Título del Evento:</label>
+                    <div class="input-icon-wrapper">
+                        
+                        <input type="text" id="ev_titulo" class="form-control" placeholder="Ej: Inventario General" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-align-left" style="top: 15px;"></i> Detalles / Descripción:</label>
+                    <div class="input-icon-wrapper">
+                        
+                        <textarea id="ev_detalles" class="form-control" rows="2" placeholder="Notas adicionales..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label><i class="fas fa-calendar-alt"></i> Inicio:</label>
+                        <div class="input-icon-wrapper">
+                            
+                            <input type="datetime-local" id="ev_inicio" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label><i class="fas fa-calendar-check"></i> Fin:</label>
+                        <div class="input-icon-wrapper">
+                            
+                            <input type="datetime-local" id="ev_fin" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+                <div class="form-group">
+                    <label><i class="fas fa-users-cog"></i> Tipo de Asignación:</label>
+                    <div class="input-icon-wrapper">
+                        
+                        <select id="ev_tipo_destino" class="form-control" onchange="actualizarListaDestinos()">
+                            <option value="persona">Usuarios Específicos</option>
+                            <option value="departamento">Departamentos</option>
+                            <option value="cargo">Cargos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-user-plus" style="top: 15px;"></i> Seleccionar Destinatarios (Ctrl + Click para varios):</label>
+                    <div class="input-icon-wrapper">
+                        
+                        <select id="ev_destino" class="form-control" multiple style="height: 120px; padding-top: 10px;" required>
+                            </select>
+                    </div>
+                    <small style="color: #888; font-size: 0.8rem; margin-top: 5px; display: block;">
+                        Mantén presionado Ctrl (o Cmd en Mac) para elegir múltiples.
+                    </small>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secundario" onclick="cerrarModal()">Cancelar</button>
+                <button type="submit" class="btn-primario">
+                    <i class="fas fa-save"></i> Guardar Planificación
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL PARA RESERVAR: LAS RESERVAS -->
+<div id="modalReserva" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-calendar-plus"></i> Reservar Sala de Reunión</h3>
+            <span class="close-modal" onclick="cerrarModal()">&times;</span>
+        </div>
+        
+        <form id="formReserva" onsubmit="guardarReservaSQL(event)">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label><i class="fas fa-door-open"></i> Seleccionar Sala:</label>
+                    <div class="input-icon-wrapper">
+                        <select id="res_sala" class="form-control">
+                            <option value="">-- Seleccione una sala --</option>
+                            <option value="1">Sala de Juntas Principal</option>
+                            <option value="2">Oficina Técnica</option>
+                            <option value="3">Sala de Capacitación</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="info-sala-detalle" style="display: none; margin-top: 10px;"></div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-user-tie"></i> Organizador / Responsable:</label>
+                    <div class="input-icon-wrapper">
+                        <select id="res_organizador" class="form-control" required>
+                            <option value="">-- Seleccione el responsable --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-file-signature"></i> Título / Motivo de la Reunión:</label>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="res_titulo" class="form-control" placeholder="Ej: Revisión de Proyecto" required>
+                    </div>
+                </div>
+
+                <div class="form-group" style="position: relative;"> 
+    <label class="fw-bold"><i class="fas fa-users"></i> Invitar Compañeros (Unicasa):</label>
+    <input type="text" id="busquedaTrabajador" class="form-control" placeholder="Busca el usuario..." autocomplete="off">
+    
+    <ul id="listaSugerencias" style="display: none; list-style: none; padding: 0; margin: 0; border: 1px solid #6b0f1a; width: 100%;"></ul>
+    
+    <div id="contenedorInternosSeleccionados" class="mt-2"></div>
+</div>
+                <div class="form-group">
+                    <label><i class="fas fa-video"></i> Modalidad de la Reunión:</label>
+                    <div class="input-icon-wrapper">
+                        <select id="res_tipo_reunion" class="form-control" onchange="toggleCamposVirtuales()" required>
+                            <option value="Presencial">📍 Presencial</option>
+                            <option value="Virtual">🌐 Virtual (Online)</option>
+                            <option value="Mixta">🏢🌐 Mixta (Híbrida)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="seccion_virtual" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #6b0f1a; margin-bottom: 15px;">
+                    <div class="form-group">
+                        <label><i class="fas fa-laptop-code"></i> Plataforma:</label>
+                        <select id="res_plataforma" class="form-control">
+                            <option value="">-- Seleccione Plataforma --</option>
+                            <option value="Google Meet">Google Meet</option>
+                            <option value="Zoom">Zoom</option>
+                            <option value="Microsoft Teams">Microsoft Teams</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-link"></i> Enlace de la Reunión:</label>
+                        <input type="text" id="res_link" class="form-control" placeholder="https://meet.google.com/...">
+                    </div>
+                </div>
+
+                <div class="form-row" style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label><i class="fas fa-clock"></i> Hora Inicio:</label>
+                        <input type="datetime-local" id="res_inicio" class="form-control" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label><i class="fas fa-hourglass-end"></i> Hora Fin:</label>
+                        <input type="datetime-local" id="res_fin" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-align-left"></i> Detalles / Descripción:</label>
+                    <textarea id="res_descripcion" class="form-control" rows="2" placeholder="Ej: Revisión de métricas..."></textarea>
+                </div>
+
+                <div class="campo-grupo">
+                    <label><i class="fas fa-users"></i> Invitados Externos (Opcional)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 5px;">
+                        <input type="text" id="inv_nombre" class="form-control" placeholder="Nombre">
+                        <input type="text" id="inv_empresa" class="form-control" placeholder="Empresa">
+                        <input type="text" id="inv_cedula" class="form-control" placeholder="Cédula">
+                        <button type="button" onclick="agregarInvitadoLista()" class="btn-secundario" style="padding: 5px 10px;">+</button>
+                    </div>
+                    <ul id="lista_invitados_previa" style="margin-top: 10px; list-style: none; padding: 0;"></ul>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-tools"></i> Materiales / Recursos:</label>
+                    <input type="text" id="res_materiales" class="form-control" placeholder="Ej: Proyector, Laptops">
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label><i class="fas fa-concierge-bell"></i> Servicios Adicionales:</label>
+                    <div class="servicios-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px;">
+                        <label class="servicio-card">
+                            <input type="checkbox" id="req_cafe" name="servicio" value="cafe" style="display: none;">
+                            <div class="servicio-content">
+                                <i class="fas fa-coffee"></i> <span>Servicio de Café</span>
+                            </div>
+                        </label>
+                        <label class="servicio-card">
+                            <input type="checkbox" id="req_agua" name="servicio" value="agua" style="display: none;">
+                            <div class="servicio-content">
+                                <i class="fas fa-tint"></i> <span>Servicio de Agua</span>
+                            </div>
+                        </label>
+                        <label class="servicio-card" style="grid-column: span 2;">
+                            <input type="checkbox" id="req_it" name="servicio" value="it" style="display: none;">
+                            <div class="servicio-content">
+                                <i class="fas fa-headset"></i> <span>Soporte Técnico (IT)</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group checkbox-container" style="margin-top: 15px;">
+                    <input type="checkbox" id="res_recurrente">
+                    <label for="res_recurrente">¿Es una reunión recurrente?</label>
+                </div>
+            </div> 
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secundario" onclick="cerrarModal()">Cancelar</button>
+                <button type="submit" class="btn-primario"><i class="fas fa-check"></i> Confirmar Reserva</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- MODAL PARA VER LOS DETALLES DE LAS TAREAS/EVENTOS/PLANIFICACIONES -->
+<div id="modalDetalles" class="modal-personalizado" style="display:none;">
+    <div class="modal-contenido-detalle">
+        <div class="modal-header-detalle">
+            <h2 id="det_titulo_tarea"></h2>
+            <span class="cerrar-modal" onclick="cerrarModalDetalles()">&times;</span>
+        </div>
+
+        <div class="modal-body-detalle">
+            <div class="detalle-seccion">
+                <label><i class="fas fa-align-left"></i> Descripción de la Actividad</label>
+                <div class="caja-descripcion">
+                    <p id="det_descripcion"></p>
+                </div>
+            </div>
+
+            <div class="detalle-grid">
+                <div class="detalle-item">
+                    <label><i class="fas fa-calendar-alt"></i> Inicio</label>
+                    <span id="det_inicio"></span>
+                </div>
+                <div class="detalle-item">
+                    <label><i class="fas fa-flag-checkered"></i> Finalización</label>
+                    <span id="det_fin"></span>
+                </div>
+                <div class="detalle-item">
+                    <label><i class="fas fa-users"></i> Personal Asignado</label>
+                    <span id="det_personal"></span>
+                </div>
+                <div class="detalle-item">
+                    <label><i class="fas fa-info-circle"></i> Estado Actual</label>
+                    <div id="det_estado_container">
+                         <span id="det_estado" class="badge-detalle"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer-detalle">
+            <button class="btn-entendido" onclick="cerrarModalDetalles()">Entendido</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- MODAL PARA VER LAS RESERVAS EN GENERAL DANDOLE CLICK AL CALENDARIO-->
+ <div id="modalDetalleReserva" class="modal-overlay" style="display: none;">
+    <div class="modal-content detalle-reserva-card">
+        <div class="modal-header-vinotinto">
+            <h3 id="det_titulo">Nombre de la Reunión</h3>
+            <span class="close-x" onclick="cerrarModal()">&times;</span>
+        </div>
+        
+        <div class="modal-body">
+            <div class="detalle-info-grid">
+                <div class="detalle-item">
+                    <label><i class="fas fa-user-circle"></i> Responsable</label>
+                    <span id="det_organizador" class="dato-texto"></span>
+                </div>
+                <div class="detalle-item">
+                    <label><i class="fas fa-map-marker-alt"></i> Sala Asignada</label>
+                    <span id="det_sala" class="badge-sala-vinotinto"></span>
+                    <div class="col-md-12">
+    <div id="det_sala"></div> <div id="info-sala-ver-detalle" style="display: none; margin-top: 10px;"></div>
+</div>
+                </div>
+
+                <div class="detalle-item full-width">
+                    <label><i class="fas fa-clock"></i> Horario de la Reserva</label>
+                    <div class="horario-destacado">
+                        <span id="det_horario"></span>
+                    </div>
+                </div>
+
+                <div class="detalle-item full-width">
+                    <label><i class="fas fa-align-left"></i> Descripción del Evento</label>
+                    <div class="caja-descripcion">
+                        <p id="det_descripcion" class="text-descripcion"></p>
+                    </div>
+                </div>
+                <div id="seccion-invitados" style="margin-top: 15px; display: none;">
+    <strong><i class="fas fa-users"></i> Personas Invitadas:</strong>
+    <ul id="lista-invitados-detalle" style="list-style: none; padding-left: 10px; margin-top: 5px; font-size: 0.9em;">
+        </ul>
+</div>
+                <div class="detalle-item full-width">
+                    <label><i class="fas fa-laptop"></i> Materiales Solicitados</label>
+                    <div class="materiales-tag">
+                        <span id="det_materiales"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+    <p style="font-size: 11px; font-weight: bold; color: #888; text-transform: uppercase; margin-bottom: 5px;">
+        <i class="fas fa-concierge-bell"></i> Servicios Especiales
+    </p>
+    <div id="det_servicios" style="font-size: 14px; color: #333; display: flex; flex-wrap: wrap;">
+        </div>
+</div>
+
+            </div>
+             <div class="detalle-item full-width">
+    <label><i class="fas fa-video"></i> Modalidad y Acceso</label>
+    <div id="det_modalidad_container" class="horario-destacado" style="background: #f0f2f5; border-left: 4px solid #6b0f1a;">
+        <span id="det_tipo_reunion" style="font-weight: bold;"></span>
+        <div id="det_link_seccion" style="margin-top: 5px; display: none;">
+            <span id="det_plataforma" class="badge-sala-vinotinto"></span>
+            <br>
+            <a id="det_link_url" href="#" target="_blank" style="color: #007bff; text-decoration: underline; word-break: break-all;"></a>
+        </div>
+        </div>
+    </div>
+</div>
+        <div class="modal-footer-moderno">
+    <div id="controles_propietario" style="display: none; width: 100%;">
+        <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+            
+            <button class="btn-flat btn-eliminar-red" onclick="eliminarReservaActual()">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+            <button class="btn-flat btn-editar-yellow" onclick="abrirModoEdicion()">
+                <i class="fas fa-pen"></i> Editar
+            </button>
+            
+            <button id="btn_checkin" class="btn-solido btn-confirmar-asistencia" onclick="confirmarAsistencia()" 
+                    style="margin-left: auto; background-color: #28a745; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                <i class="fas fa-check-circle"></i> Comenzar Reunión
+            </button>
+
+            <button class="btn-solido btn-completar-green" onclick="marcarCompletada()" 
+                    style="background-color: #28a745; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                <i class="fas fa-check-double"></i> Finalizar Reunión
+            </button>
+        </div>
+    </div>
+
+    </div>
+
+    <div id="msg_solo_lectura" style="display: none; color: #666; font-style: italic; padding: 15px; text-align: center; width: 100%; border-top: 1px solid #eee;">
+        <i class="fas fa-eye"></i> Vista de solo lectura (No eres el organizador)
+    </div>
+
+    <div class="seccion-admin-footer" style="width: 100%; margin-top: 15px; border-top: 2px solid #f4f4f4; padding-top: 10px;">
+        {% if session['es_admin'] %}
+            <button id="btnAprobarAdmin" class="btn-solido" style="background-color: #2c3e50; color: white; width: 100%;" onclick="aprobarYLoguear()">
+                <i class="fas fa-file-signature"></i> Aprobar y Archivar
+            </button>
+        {% else %}
+            <p class="admin-only-msg" style="text-align: center; font-size: 0.9em; color: #888; margin: 5px 0;">
+                <i class="fas fa-info-circle"></i> Estado: Pendiente de revisión administrativa.
+            </p>
+        {% endif %}
+    </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de sesión: ProyecT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vinotinto: #9c1c3f;
+            --rojo: #d90429;
+            --gris-claro: #f0f2f5;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #9c1c3f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-card {
+            background: var(--blanco);
+            padding: 40px;
+            border-radius: 12px;
+            border: 4px solid #5f031a;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15), 
+            0 25px 50px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+            .login-card h2 {
+                color: #9c1c3f;
+                margin-bottom: 10px;
+            }
+
+            .login-card p {
+                color: #666;
+                margin-bottom: 30px;
+                font-size: 0.9rem;
+            }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box; /* Para que el padding no ensanche el input */
+            transition: border 0.3s;
+        }
+
+            input:focus {
+                border-color: var(--rojo);
+                outline: none;
+            }
+
+        .btn-login {
+            width: 100%;
+            background-color: #9c1c3f;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+            .btn-login:hover {
+                background-color: var(--rojo);
+            }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+        /* Animaciones principales */
+        @keyframes slideUpFade {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Aplicación al contenedor */
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            /* AQUÍ SE ACTIVA LA ANIMACIÓN */
+            animation: slideUpFade 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animación para el logo de Unicasa dentro del login */
+        .login-logo {
+            animation: scaleIn 1s ease-out;
+            margin-bottom: 20px;
+        }
+
+        /* Efecto focus en los inputs para que se sientan modernos */
+        .login-input {
+            transition: all 0.3s ease;
+        }
+
+            .login-input:focus {
+                border-color: #d90429;
+                box-shadow: 0 0 8px rgba(217, 4, 41, 0.4);
+                transform: translateY(-2px); /* Pequeño salto hacia arriba al escribir */
+            }
+            /* Efecto para los inputs al hacer clic */
+            .login-input:focus {
+                transform: scale(1.02);
+                box-shadow: 0 0 15px rgba(217, 4, 41, 0.3);
+                border-color: #d90429;
+                transition: all 0.3s ease;
+            }
+
+        /* Animación del botón de entrar */
+        .btn-login:active {
+            transform: scale(0.95);
+        }
+        /* Efecto de Texto con Degradado Animado */
+        .logo-animado {
+            width: 280px; /* Ajusta según el ancho de tu barra lateral */
+            height: auto;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: aparecerYBrillar 1.5s ease-out forwards, pulsoSutil 2s infinite ease-in-out 1.5s;
+            filter: drop-shadow(0 0 2px rgba(255,255,255,0.1));
+        }
+        @keyframes aparecerYBrillar {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 2. Animación constante: un brillo muy suave que va y viene */
+        @keyframes pulsoSutil {
+            0%, 100% {
+                filter: drop-shadow(0 0 2px rgba(255,255,255,0.1));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(156, 28, 63, 0.4)); /* Brillo Vinotinto */
+                transform: scale(1.02);
+            }
+        }
+       
+        /* Animación de entrada (Aparecer suave) */
+        .fade-in-text {
+            animation: fadeInLetters 1.2s ease-out forwards;
+        }
+
+        @keyframes fadeInLetters {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+                filter: blur(5px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+            
+
+        /* Animación del barrido de luz */
+        @keyframes shine-sweep {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* EFECTO PANEL DE EVENTOS - NEÓN SUTIL */
+        .titulo-panel-animado {
+            font-weight: 600;
+            position: relative;
+            color: #333;
+            animation: fadeInFocus 1.5s ease-in-out;
+        }
+
+            .titulo-panel-animado::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 0;
+                height: 3px;
+                background: #d90429;
+                box-shadow: 0 0 15px #d90429;
+                transition: width 0.6s ease;
+            }
+
+        .header-animated:hover .titulo-panel-animado::after {
+            width: 100%;
+        }
+
+        @keyframes fadeInFocus {
+            0% {
+                filter: blur(10px);
+                opacity: 0;
+                letter-spacing: 15px;
+            }
+
+            100% {
+                filter: blur(0);
+                opacity: 1;
+                letter-spacing: normal;
+            }
+        }
+        /* Estilo específico para el enlace de registro */
+        .link-registro {
+            color: var(--vinotinto); /* Tu color base */
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease; /* Hace que el cambio de color sea suave */
+            display: inline-block;
+        }
+
+            .link-registro:hover {
+                color: var(--rojo); /* Cambia a un rojo más vivo */
+                text-decoration: underline; /* Aparece el subrayado */
+                transform: translateY(-1px); /* Un pequeño salto hacia arriba muy sutil */
+            }
+
+            
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="logo fade-in-text">
+            <div class="logo-container">
+    <img src="{{ url_for('static', filename='logo_unicasa.png') }}" alt="Logo Unicasa" class="logo-animado">
+                <div style="font-size: 16px; color: #aaa; letter-spacing: 0.5px; margin-top: -5px;">La mejor red de supermercados.</div>
+            </div>
+        </div>
+        <h2>INICIAR SESIÓN</h2>
+        <p>Introduce tus datos de empleado:</p>
+
+        <form action="/auth" method="POST">
+            <div class="form-group">
+                <label for="correo">Correo Institucional:</label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@unicasa.com.ve" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+            <p>
+            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee; text-align: center;">
+                <p style="color: #666; font-size: 0.9rem; margin: 0; font-family: Inter;">
+                    ¿No tienes una cuenta?
+                    <br> <a href="/pantalla_registro" style="color: #6b0f1a; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 8px; transition: 0.3s;">
+                        Regístrate aquí
+                        
+                    </a>
+                </p>
+               <p>
+            </div>
+            <button type="submit" class="btn-login">Entrar al Sistema</button>
+
+        </form>
+        
+    <div class="footer-text">
+        © 2026 Supermercados Unicasa C.A. <br> ProyecT: Sistema de planificación interna.
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if error_login %}
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Error al iniciar sesión',
+        text: 'Correo o contraseña no son válidos',
+        confirmButtonColor: '#800020', // El color de tu proyecto
+        background: '#ffffff'
+    });
+</script>
+{% endif %}
+</body>
+</html>
